@@ -1,0 +1,222 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Company')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.iceLike">
+                            <label for="1">{{'Ice' | translate}}</label>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="2" type="text"  [(ngModel)]="criteria.headquartersLike">
+                            <label for="2">{{'Headquarters' | translate}}</label>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidYearISMin" id="3-1"></p-inputNumber>
+                            <label for="3-1">{{'Last paid year i s' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidYearISMax" id="3-2"></p-inputNumber>
+                            <label for="3-2">{{'Last paid year i s' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidQuarterISMin" id="4-1"></p-inputNumber>
+                            <label for="4-1">{{'Last paid quarter i s' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidQuarterISMax" id="4-2"></p-inputNumber>
+                            <label for="4-2">{{'Last paid quarter i s' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidYearVATMin" id="5-1"></p-inputNumber>
+                            <label for="5-1">{{'Last paid year v a t' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidYearVATMax" id="5-2"></p-inputNumber>
+                            <label for="5-2">{{'Last paid year v a t' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidQuarterVATMin" id="6-1"></p-inputNumber>
+                            <label for="6-1">{{'Last paid quarter v a t' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.lastPaidQuarterVATMax" id="6-2"></p-inputNumber>
+                            <label for="6-2">{{'Last paid quarter v a t' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown  id="7" [options]="yesOrNoBlocked" [(ngModel)]="criteria.blocked"
+                                    [filter]="false" [showClear]="true"  placeholder="{{'Blocked' | translate}}" optionLabel="label" optionValue="value">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="subscribers" [(ngModel)]="criteria.subscriber" id="9" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Subscriber' | translate}}" optionLabel="code">
+                            </p-dropdown>
+                        </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['ice', 'headquarters', 'lastPaidYearIS', 'lastPaidQuarterIS', 'lastPaidYearVAT', 'lastPaidQuarterVAT', 'blocked', 'subscribercode']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'companyHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="ice">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Ice' | translate}}</span>
+                                <p-sortIcon field="ice"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.ice" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="headquarters">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Headquarters' | translate}}</span>
+                                <p-sortIcon field="headquarters"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.headquarters" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="lastPaidYearIS">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Last paid year i s' | translate}}</span>
+                                <p-sortIcon field="lastPaidYearIS"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="lastPaidQuarterIS">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Last paid quarter i s' | translate}}</span>
+                                <p-sortIcon field="lastPaidQuarterIS"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="lastPaidYearVAT">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Last paid year v a t' | translate}}</span>
+                                <p-sortIcon field="lastPaidYearVAT"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="lastPaidQuarterVAT">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Last paid quarter v a t' | translate}}</span>
+                                <p-sortIcon field="lastPaidQuarterVAT"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="blocked">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Blocked' | translate}}</span>
+                                <p-sortIcon field="blocked"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="subscriber">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Subscriber' | translate}}</span>
+                                <p-sortIcon field="subscriber"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.ice}}</td>
+                            
+                            
+                        <td>{{element.headquarters}}</td>
+                            
+                            
+                        <td>{{element.lastPaidYearIS}}</td>
+                            
+                            
+                        <td>{{element.lastPaidQuarterIS}}</td>
+                            
+                            
+                        <td>{{element.lastPaidYearVAT}}</td>
+                            
+                            
+                        <td>{{element.lastPaidQuarterVAT}}</td>
+                            
+                            
+                        <td><i *ngIf="element.blocked" class="pi pi-check checked-toogle"></i>
+                            <i *ngIf="!element.blocked" class="pi pi-times unchecked-toogle"></i>
+                        </td>
+                            
+                            
+                        <td>{{element.subscriber?.code}}</td>
+                            
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                            <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-secondary" (click)="exportPdf(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'company' : 'companys' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-company-create-admin></app-company-create-admin>
+        <app-company-edit-admin></app-company-edit-admin>
+        <app-company-view-admin></app-company-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

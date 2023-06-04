@@ -1,0 +1,249 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('AccountingOperation')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                        <label for="file-upload" class="file-upload-label">
+                            <span class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></span>
+                            <span class="upload-text">Click to select a file</span>
+                        </label>
+                        <input id="file-upload" type="file" (change)="onExcelFileSelected($event)" accept=".xlsx, .xls" style="display: none;">
+                        <p-splitButton (click)="importExcel()"  [disabled]="!excelFile" label=" {{'import' | translate}}" icon="pi pi-upload"  styleClass="p-button-help"  style="margin-right: 2% ; color: #1BA7AF"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.libelleLike">
+                            <label for="1">{{'Libelle' | translate}}</label>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.yearMin" id="2-1"></p-inputNumber>
+                            <label for="2-1">{{'Year' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.yearMax" id="2-2"></p-inputNumber>
+                            <label for="2-2">{{'Year' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.monthMin" id="3-1"></p-inputNumber>
+                            <label for="3-1">{{'Month' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.monthMax" id="3-2"></p-inputNumber>
+                            <label for="3-2">{{'Month' | translate}} Max</label>
+                       </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.accountingOperationDateFrom"
+                                    id="4-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-1">{{'Accounting operation date' | translate}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.accountingOperationDateTo"
+                                    id="4-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-2">{{'Accounting operation date' | translate}} Max</label>
+                        </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.amountMin" id="5-1"></p-inputNumber>
+                            <label for="5-1">{{'Amount' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.amountMax" id="5-2"></p-inputNumber>
+                            <label for="5-2">{{'Amount' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="companys" [(ngModel)]="criteria.company" id="6" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Company' | translate}}" optionLabel="ice">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="accountingAccounts" [(ngModel)]="criteria.accountingAccount" id="7" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Accounting account' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="accountingOperationTypes" [(ngModel)]="criteria.accountingOperationType" id="8" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Accounting operation type' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="accountingOperationStatuss" [(ngModel)]="criteria.accountingOperationStatus" id="9" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Accounting operation status' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['libelle', 'year', 'month', 'accountingOperationDate', 'amount', 'companyice', 'accountingAccountlibelle', 'accountingOperationTypelibelle', 'accountingOperationStatuslibelle']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'accountingOperationHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="libelle">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Libelle' | translate}}</span>
+                                <p-sortIcon field="libelle"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.libelle" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="year">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Year' | translate}}</span>
+                                <p-sortIcon field="year"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="month">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Month' | translate}}</span>
+                                <p-sortIcon field="month"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="accountingOperationDate">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Accounting operation date' | translate}}</span>
+                                <p-sortIcon field="accountingOperationDate"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="amount">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Amount' | translate}}</span>
+                                <p-sortIcon field="amount"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="company">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Company' | translate}}</span>
+                                <p-sortIcon field="company"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="accountingAccount">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Accounting account' | translate}}</span>
+                                <p-sortIcon field="accountingAccount"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="accountingOperationType">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Accounting operation type' | translate}}</span>
+                                <p-sortIcon field="accountingOperationType"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="accountingOperationStatus">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Accounting operation status' | translate}}</span>
+                                <p-sortIcon field="accountingOperationStatus"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.libelle}}</td>
+                            
+                            
+                        <td>{{element.year}}</td>
+                            
+                            
+                        <td>{{element.month}}</td>
+                            
+                            
+                        <td>{{element.accountingOperationDate | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.amount}}</td>
+                            
+                            
+                        <td>{{element.company?.ice}}</td>
+                            
+                            
+                        <td>{{element.accountingAccount?.libelle}}</td>
+                            
+                            
+                        <td>{{element.accountingOperationType?.libelle}}</td>
+                            
+                            
+                        <td>{{element.accountingOperationStatus?.libelle}}</td>
+                            
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                            <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-secondary" (click)="exportPdf(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'accounting operation' : 'accounting operations' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-accounting-operation-create-admin></app-accounting-operation-create-admin>
+        <app-accounting-operation-edit-admin></app-accounting-operation-edit-admin>
+        <app-accounting-operation-view-admin></app-accounting-operation-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

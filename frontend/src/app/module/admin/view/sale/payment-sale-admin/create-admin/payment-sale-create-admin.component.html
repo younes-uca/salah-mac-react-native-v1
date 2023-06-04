@@ -1,0 +1,90 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'paymentSaleTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'paymentSaleTabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="1">{{'paymentSaleReference' | translate}}</label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'paymentSaleReference' | translate}}" id="1" [(ngModel)]="item.reference"
+                                                             />
+                                                    
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="2">{{'paymentSalePaymentDate' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="{{'paymentSalePaymentDate' | translate}}"  [(ngModel)]="item.paymentDate"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="3">{{'paymentSaleAmount' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="3" placeholder="{{'paymentSaleAmount' | translate}}" [(ngModel)]="item.amount"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-3">
+                                                <label for="4">{{'paymentSaleSale' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="sales" [(ngModel)]="item.sale" id="4" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="reference" placeholder="{{'paymentSaleSale' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateSale('Sale')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                            <div class="field col-11 md:col-3">
+                                                <label for="5">{{'paymentSalePaymentMethod' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="paymentMethods" [(ngModel)]="item.paymentMethod" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'paymentSalePaymentMethod' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="6">{{'paymentSaleDescription' | translate}}</label>
+                                                    <textarea id="6" pInputTextarea rows="5" cols="30" placeholder="{{'paymentSaleDescription' | translate}}"  [(ngModel)]="item.description"
+                                                             ></textarea>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-3">
+                                                <label for="7">{{'paymentSalePaymentStatus' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="paymentStatuss" [(ngModel)]="item.paymentStatus" id="7" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'paymentSalePaymentStatus' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreatePaymentStatus('PaymentStatus')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+            <app-sale-create-admin></app-sale-create-admin>
+            <app-payment-status-create-admin></app-payment-status-create-admin>
+
+
+    </p-dialog>

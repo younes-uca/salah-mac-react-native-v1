@@ -1,0 +1,300 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('VatDeclaration')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.referenceLike">
+                            <label for="1">{{'Reference' | translate}}</label>
+                        </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.declarationDateFrom"
+                                    id="2-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-1">{{'Declaration date' | translate}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.declarationDateTo"
+                                    id="2-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-2">{{'Declaration date' | translate}} Max</label>
+                        </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.quarterMin" id="3-1"></p-inputNumber>
+                            <label for="3-1">{{'Quarter' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.quarterMax" id="3-2"></p-inputNumber>
+                            <label for="3-2">{{'Quarter' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.yearMin" id="4-1"></p-inputNumber>
+                            <label for="4-1">{{'Year' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.yearMax" id="4-2"></p-inputNumber>
+                            <label for="4-2">{{'Year' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="companys" [(ngModel)]="criteria.company" id="5" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Company' | translate}}" optionLabel="ice">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalCollectedVatMin" id="6-1"></p-inputNumber>
+                            <label for="6-1">{{'Total collected vat' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalCollectedVatMax" id="6-2"></p-inputNumber>
+                            <label for="6-2">{{'Total collected vat' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalDueVatMin" id="7-1"></p-inputNumber>
+                            <label for="7-1">{{'Total due vat' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalDueVatMax" id="7-2"></p-inputNumber>
+                            <label for="7-2">{{'Total due vat' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.vatDifferenceMin" id="8-1"></p-inputNumber>
+                            <label for="8-1">{{'Vat difference' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.vatDifferenceMax" id="8-2"></p-inputNumber>
+                            <label for="8-2">{{'Vat difference' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="latePaymentRates" [(ngModel)]="criteria.latePaymentRate" id="9" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Late payment rate' | translate}}" optionLabel="id">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.vatAmountMin" id="10-1"></p-inputNumber>
+                            <label for="10-1">{{'Vat amount' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.vatAmountMax" id="10-2"></p-inputNumber>
+                            <label for="10-2">{{'Vat amount' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="handlingAccountants" [(ngModel)]="criteria.handlingAccountant" id="11" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Handling accountant' | translate}}" optionLabel="cin">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="validationAccountants" [(ngModel)]="criteria.validationAccountant" id="12" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Validation accountant' | translate}}" optionLabel="cin">
+                            </p-dropdown>
+                        </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['reference', 'declarationDate', 'quarter', 'year', 'companyice', 'totalCollectedVat', 'totalDueVat', 'vatDifference', 'latePaymentRateid', 'vatAmount', 'handlingAccountantcin', 'validationAccountantcin']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'vatDeclarationHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="reference">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Reference' | translate}}</span>
+                                <p-sortIcon field="reference"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.reference" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="declarationDate">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Declaration date' | translate}}</span>
+                                <p-sortIcon field="declarationDate"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="quarter">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Quarter' | translate}}</span>
+                                <p-sortIcon field="quarter"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="year">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Year' | translate}}</span>
+                                <p-sortIcon field="year"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="company">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Company' | translate}}</span>
+                                <p-sortIcon field="company"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="totalCollectedVat">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total collected vat' | translate}}</span>
+                                <p-sortIcon field="totalCollectedVat"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="totalDueVat">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total due vat' | translate}}</span>
+                                <p-sortIcon field="totalDueVat"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="vatDifference">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Vat difference' | translate}}</span>
+                                <p-sortIcon field="vatDifference"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="latePaymentRate">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Late payment rate' | translate}}</span>
+                                <p-sortIcon field="latePaymentRate"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                <!-- 
+                        <th pSortableColumn="vatAmount">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Vat amount' | translate}}</span>
+                                <p-sortIcon field="vatAmount"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="handlingAccountant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Handling accountant' | translate}}</span>
+                                <p-sortIcon field="handlingAccountant"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="validationAccountant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Validation accountant' | translate}}</span>
+                                <p-sortIcon field="validationAccountant"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.reference}}</td>
+                            
+                            
+                        <td>{{element.declarationDate | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.quarter}}</td>
+                            
+                            
+                        <td>{{element.year}}</td>
+                            
+                            
+                        <td>{{element.company?.ice}}</td>
+                            
+                            
+                        <td>{{element.totalCollectedVat}}</td>
+                            
+                            
+                        <td>{{element.totalDueVat}}</td>
+                            
+                            
+                        <td>{{element.vatDifference}}</td>
+                            
+                            
+                        <td>{{element.latePaymentRate?.id}}</td>
+                            
+                             <!-- 
+                        <td>{{element.vatAmount}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.handlingAccountant?.cin}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.validationAccountant?.cin}}</td>
+                             --> 
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                            <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-secondary" (click)="exportPdf(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'vat declaration' : 'vat declarations' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-vat-declaration-create-admin></app-vat-declaration-create-admin>
+        <app-vat-declaration-edit-admin></app-vat-declaration-edit-admin>
+        <app-vat-declaration-view-admin></app-vat-declaration-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

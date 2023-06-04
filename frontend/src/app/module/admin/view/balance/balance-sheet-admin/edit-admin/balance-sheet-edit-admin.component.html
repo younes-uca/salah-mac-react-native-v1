@@ -1,0 +1,214 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'balanceSheetTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'balanceSheetTabPan' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="1">{{'balanceSheetRef' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'balanceSheetRef' | translate}}" id="1" [(ngModel)]="item.ref"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="2">{{'balanceSheetYear' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="2"
+                                                           placeholder="{{'balanceSheetYear' | translate}}" [(ngModel)]="item.year"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="3">{{'balanceSheetCompany' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="companys" [(ngModel)]="item.company" id="3"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="ice" placeholder="{{'balanceSheetCompany' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="4">{{'balanceSheetIntangibleAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="4"
+                                                           placeholder="{{'balanceSheetIntangibleAssets' | translate}}" [(ngModel)]="item.intangibleAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="5">{{'balanceSheetTangibleAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="5"
+                                                           placeholder="{{'balanceSheetTangibleAssets' | translate}}" [(ngModel)]="item.tangibleAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="6">{{'balanceSheetFinancialAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="6"
+                                                           placeholder="{{'balanceSheetFinancialAssets' | translate}}" [(ngModel)]="item.financialAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="7">{{'balanceSheetTotalFixedAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="7"
+                                                           placeholder="{{'balanceSheetTotalFixedAssets' | translate}}" [(ngModel)]="item.totalFixedAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="8">{{'balanceSheetInventories' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="8"
+                                                           placeholder="{{'balanceSheetInventories' | translate}}" [(ngModel)]="item.inventories"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="9">{{'balanceSheetAccountsReceivable' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="9"
+                                                           placeholder="{{'balanceSheetAccountsReceivable' | translate}}" [(ngModel)]="item.accountsReceivable"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="10">{{'balanceSheetTotalCurrentAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="10"
+                                                           placeholder="{{'balanceSheetTotalCurrentAssets' | translate}}" [(ngModel)]="item.totalCurrentAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="11">{{'balanceSheetBankDeposits' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="11"
+                                                           placeholder="{{'balanceSheetBankDeposits' | translate}}" [(ngModel)]="item.bankDeposits"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="12">{{'balanceSheetCashInHand' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="12"
+                                                           placeholder="{{'balanceSheetCashInHand' | translate}}" [(ngModel)]="item.cashInHand"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="13">{{'balanceSheetTotalTreasuryAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="13"
+                                                           placeholder="{{'balanceSheetTotalTreasuryAssets' | translate}}" [(ngModel)]="item.totalTreasuryAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="14">{{'balanceSheetTotalAssets' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="14"
+                                                           placeholder="{{'balanceSheetTotalAssets' | translate}}" [(ngModel)]="item.totalAssets"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="15">{{'balanceSheetEquity' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="15"
+                                                           placeholder="{{'balanceSheetEquity' | translate}}" [(ngModel)]="item.equity"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="16">{{'balanceSheetLoans' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="16"
+                                                           placeholder="{{'balanceSheetLoans' | translate}}" [(ngModel)]="item.loans"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="17">{{'balanceSheetProfit' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="17"
+                                                           placeholder="{{'balanceSheetProfit' | translate}}" [(ngModel)]="item.profit"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="18">{{'balanceSheetTotalPermanentFinancing' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="18"
+                                                           placeholder="{{'balanceSheetTotalPermanentFinancing' | translate}}" [(ngModel)]="item.totalPermanentFinancing"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="19">{{'balanceSheetAccountsPayable' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="19"
+                                                           placeholder="{{'balanceSheetAccountsPayable' | translate}}" [(ngModel)]="item.accountsPayable"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="20">{{'balanceSheetOtherCurrentLiabilities' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="20"
+                                                           placeholder="{{'balanceSheetOtherCurrentLiabilities' | translate}}" [(ngModel)]="item.otherCurrentLiabilities"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="21">{{'balanceSheetTotalCurrentLiabilities' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="21"
+                                                           placeholder="{{'balanceSheetTotalCurrentLiabilities' | translate}}" [(ngModel)]="item.totalCurrentLiabilities"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="22">{{'balanceSheetTotalLiabilities' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="22"
+                                                           placeholder="{{'balanceSheetTotalLiabilities' | translate}}" [(ngModel)]="item.totalLiabilities"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="23">{{'balanceSheetBalanceSheetStatus' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="balanceSheetStatuss" [(ngModel)]="item.balanceSheetStatus" id="23"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'balanceSheetBalanceSheetStatus' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateBalanceSheetStatus('BalanceSheetStatus')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-balance-sheet-status-create-admin></app-balance-sheet-status-create-admin>
+
+
+    </p-dialog>

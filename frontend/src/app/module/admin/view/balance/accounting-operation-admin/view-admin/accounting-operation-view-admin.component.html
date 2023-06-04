@@ -1,0 +1,60 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'accountingOperationTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'accountingOperationTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-4">
+                        <label for="1">{{'Libelle' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Libelle' | translate}}" autofocus  id="1" [(ngModel)]="item.libelle">
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="2">{{'Year' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="2" [disabled]="true" placeholder="{{'Year' | translate}}" [(ngModel)]="item.year"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="3">{{'Month' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="3" [disabled]="true" placeholder="{{'Month' | translate}}" [(ngModel)]="item.month"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="4">{{'Accounting operation date' | translate}}</label>
+                        <p-calendar id="4" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'Accounting operation date' | translate}}"  [(ngModel)]="item.accountingOperationDate" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="5">{{'Amount' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="5" [disabled]="true" placeholder="{{'Amount' | translate}}" [(ngModel)]="item.amount"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="6">{{'Company' | translate}}</label>
+                        <p-dropdown [options]="companys" [(ngModel)]="item.company" id="6" [disabled]="true" optionLabel="ice" placeholder="{{'Company' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="7">{{'Accounting account' | translate}}</label>
+                        <p-dropdown [options]="accountingAccounts" [(ngModel)]="item.accountingAccount" id="7" [disabled]="true" optionLabel="libelle" placeholder="{{'Accounting account' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="8">{{'Accounting operation type' | translate}}</label>
+                        <p-dropdown [options]="accountingOperationTypes" [(ngModel)]="item.accountingOperationType" id="8" [disabled]="true" optionLabel="libelle" placeholder="{{'Accounting operation type' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="9">{{'Accounting operation status' | translate}}</label>
+                        <p-dropdown [options]="accountingOperationStatuss" [(ngModel)]="item.accountingOperationStatus" id="9" [disabled]="true" optionLabel="libelle" placeholder="{{'Accounting operation status' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

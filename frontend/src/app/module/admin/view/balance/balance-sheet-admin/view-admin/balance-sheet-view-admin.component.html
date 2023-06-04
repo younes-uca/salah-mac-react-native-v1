@@ -1,0 +1,116 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'balanceSheetTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'balanceSheetTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-3">
+                        <label for="1">{{'Ref' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Ref' | translate}}" autofocus  id="1" [(ngModel)]="item.ref">
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="2">{{'Year' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="2" [disabled]="true" placeholder="{{'Year' | translate}}" [(ngModel)]="item.year"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="3">{{'Company' | translate}}</label>
+                        <p-dropdown [options]="companys" [(ngModel)]="item.company" id="3" [disabled]="true" optionLabel="ice" placeholder="{{'Company' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="4">{{'Intangible assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="4" [disabled]="true" placeholder="{{'Intangible assets' | translate}}" [(ngModel)]="item.intangibleAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="5">{{'Tangible assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="5" [disabled]="true" placeholder="{{'Tangible assets' | translate}}" [(ngModel)]="item.tangibleAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="6">{{'Financial assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="6" [disabled]="true" placeholder="{{'Financial assets' | translate}}" [(ngModel)]="item.financialAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="7">{{'Total fixed assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="7" [disabled]="true" placeholder="{{'Total fixed assets' | translate}}" [(ngModel)]="item.totalFixedAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="8">{{'Inventories' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'Inventories' | translate}}" [(ngModel)]="item.inventories"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="9">{{'Accounts receivable' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="9" [disabled]="true" placeholder="{{'Accounts receivable' | translate}}" [(ngModel)]="item.accountsReceivable"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="10">{{'Total current assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="10" [disabled]="true" placeholder="{{'Total current assets' | translate}}" [(ngModel)]="item.totalCurrentAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="11">{{'Bank deposits' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="11" [disabled]="true" placeholder="{{'Bank deposits' | translate}}" [(ngModel)]="item.bankDeposits"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="12">{{'Cash in hand' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="12" [disabled]="true" placeholder="{{'Cash in hand' | translate}}" [(ngModel)]="item.cashInHand"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="13">{{'Total treasury assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="13" [disabled]="true" placeholder="{{'Total treasury assets' | translate}}" [(ngModel)]="item.totalTreasuryAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="14">{{'Total assets' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="14" [disabled]="true" placeholder="{{'Total assets' | translate}}" [(ngModel)]="item.totalAssets"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="15">{{'Equity' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="15" [disabled]="true" placeholder="{{'Equity' | translate}}" [(ngModel)]="item.equity"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="16">{{'Loans' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="16" [disabled]="true" placeholder="{{'Loans' | translate}}" [(ngModel)]="item.loans"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="17">{{'Profit' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="17" [disabled]="true" placeholder="{{'Profit' | translate}}" [(ngModel)]="item.profit"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="18">{{'Total permanent financing' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="18" [disabled]="true" placeholder="{{'Total permanent financing' | translate}}" [(ngModel)]="item.totalPermanentFinancing"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="19">{{'Accounts payable' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="19" [disabled]="true" placeholder="{{'Accounts payable' | translate}}" [(ngModel)]="item.accountsPayable"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="20">{{'Other current liabilities' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="20" [disabled]="true" placeholder="{{'Other current liabilities' | translate}}" [(ngModel)]="item.otherCurrentLiabilities"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="21">{{'Total current liabilities' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="21" [disabled]="true" placeholder="{{'Total current liabilities' | translate}}" [(ngModel)]="item.totalCurrentLiabilities"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="22">{{'Total liabilities' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="22" [disabled]="true" placeholder="{{'Total liabilities' | translate}}" [(ngModel)]="item.totalLiabilities"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="23">{{'Balance sheet status' | translate}}</label>
+                        <p-dropdown [options]="balanceSheetStatuss" [(ngModel)]="item.balanceSheetStatus" id="23" [disabled]="true" optionLabel="libelle" placeholder="{{'Balance sheet status' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

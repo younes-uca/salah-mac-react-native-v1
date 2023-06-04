@@ -1,0 +1,32 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'bankCheckOwnerTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'bankCheckOwnerTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-6">
+                        <label for="1">{{'Check owner' | translate}}</label>
+                        <p-dropdown [options]="checkOwners" [(ngModel)]="item.checkOwner" id="1" [disabled]="true" optionLabel="name" placeholder="{{'Check owner' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="2">{{'Bank' | translate}}</label>
+                        <p-dropdown [options]="banks" [(ngModel)]="item.bank" id="2" [disabled]="true" optionLabel="libelle" placeholder="{{'Bank' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

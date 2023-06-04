@@ -1,0 +1,82 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'companyTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'companyTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-4">
+                        <label for="1">{{'Ice' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Ice' | translate}}" autofocus  id="1" [(ngModel)]="item.ice">
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="2">{{'Headquarters' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Headquarters' | translate}}" autofocus  id="2" [(ngModel)]="item.headquarters">
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="3">{{'Last paid year i s' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="3" [disabled]="true" placeholder="{{'Last paid year i s' | translate}}" [(ngModel)]="item.lastPaidYearIS"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="4">{{'Last paid quarter i s' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="4" [disabled]="true" placeholder="{{'Last paid quarter i s' | translate}}" [(ngModel)]="item.lastPaidQuarterIS"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="5">{{'Last paid year v a t' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="5" [disabled]="true" placeholder="{{'Last paid year v a t' | translate}}" [(ngModel)]="item.lastPaidYearVAT"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="6">{{'Last paid quarter v a t' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="6" [disabled]="true" placeholder="{{'Last paid quarter v a t' | translate}}" [(ngModel)]="item.lastPaidQuarterVAT"></p-inputNumber>
+                    </div>
+                    <div class="field align-inputswitch col-12  md:col-4">
+                        <div  class="label-inputswitch">
+                            <label for="7">{{'Blocked' | translate}}</label>
+                        </div>
+                        <div class="input-switch">
+                            <p-inputSwitch id="7"  [disabled]="true" [(ngModel)]="item.blocked"></p-inputSwitch>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="9">{{'Subscriber' | translate}}</label>
+                        <p-dropdown [options]="subscribers" [(ngModel)]="item.subscriber" id="9" [disabled]="true" optionLabel="code" placeholder="{{'Subscriber' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="companyStores">
+                <div class="grid">
+                    <div class="col">
+                        <div class="card">
+                            <p-table [value]="item.stores" [scrollable]="true" scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Libelle</th>
+                                        <th>Reference</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.libelle}}</td>
+                                        <td>{{p.reference}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

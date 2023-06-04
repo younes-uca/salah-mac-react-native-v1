@@ -1,0 +1,126 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'deliveryTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'deliveryTabPan' | translate}}">
+                        <div class="grid">
+
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="1">{{'deliveryDemand' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="demands" [(ngModel)]="item.demand" id="1"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="reference" placeholder="{{'deliveryDemand' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateDemand('Demand')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="2">{{'deliveryDeliveryDate' | translate}}</label>
+                                            <p-calendar appendTo="body" id="2"   [showTime]="true" [showSeconds]="false" placeholder="{{'deliveryDeliveryDate' | translate}}"  [(ngModel)]="item.deliveryDate"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="3">{{'deliveryDeliveryStatus' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="deliveryStatuss" [(ngModel)]="item.deliveryStatus" id="3"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'deliveryDeliveryStatus' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateDeliveryStatus('DeliveryStatus')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="5">{{'deliveryClient' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="clients" [(ngModel)]="item.client" id="5"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="name" placeholder="{{'deliveryClient' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                            <p-tabPanel header="deliveryDeliveryItems">
+                                <p-tabView [(activeIndex)]="activeTab">
+                                    <p-tabPanel header="Création">
+                                        <div class="grid">
+                                                            <div class="field col-11 md:col-3">
+                                                                <label>Product</label>
+                                                                <p-dropdown appendTo="body" [options]="products" [(ngModel)]="deliveryItemsElement.product"
+                                                                        id="1"  [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                                        optionLabel="libelle" placeholder="Product"  >
+                                                                </p-dropdown>
+                                                                
+                                                            </div>
+                                                            <div class="field col-11 md:col-3">
+                                                                <label>Store</label>
+                                                                <p-dropdown appendTo="body" [options]="stores" [(ngModel)]="deliveryItemsElement.store"
+                                                                        id="2"  [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                                        optionLabel="libelle" placeholder="Store"  >
+                                                                </p-dropdown>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="3">Quantity</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="quantity" [(ngModel)]="deliveryItemsElement.quantity" placeholder="Quantity"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                <div class="field col-12 md:col-1">
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addDeliveryItems()"></button>
+                                                </div>
+                                        </div>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="Liste {{item.deliveryItems?.length > 0 ? '(' + item.deliveryItems?.length + ')' : ''}}">
+                                            <div class="card">
+                                                <p-table [value]="item.deliveryItems" [scrollable]="true" scrollHeight="200px">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                                        <th>Product</th>
+                                                                        <th>Store</th>
+                                                                        <th>Quantity</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-p>
+                                                        <tr>
+                                                                    <td>{{p.product?.libelle}}</td>
+                                                                    <td>{{p.store?.libelle}}</td>
+                                                                        <td>{{p.quantity}}</td>
+                                                            <td>
+                                                                <button (click)="deleteDeliveryItem(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                <button (click)="editDeliveryItem(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </p-tabPanel>
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-demand-create-admin></app-demand-create-admin>
+                    <app-delivery-status-create-admin></app-delivery-status-create-admin>
+
+
+    </p-dialog>

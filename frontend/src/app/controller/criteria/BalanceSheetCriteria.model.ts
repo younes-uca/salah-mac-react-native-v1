@@ -1,0 +1,76 @@
+import {CompanyCriteria} from './CompanyCriteria.model';
+import {BalanceSheetStatusCriteria} from './BalanceSheetStatusCriteria.model';
+import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
+
+
+export class BalanceSheetCriteria  extends   BaseCriteria  {
+
+    public id: number;
+    public ref: string;
+    public refLike: string;
+     public year: number;
+     public yearMin: number;
+     public yearMax: number;
+     public intangibleAssets: number;
+     public intangibleAssetsMin: number;
+     public intangibleAssetsMax: number;
+     public tangibleAssets: number;
+     public tangibleAssetsMin: number;
+     public tangibleAssetsMax: number;
+     public financialAssets: number;
+     public financialAssetsMin: number;
+     public financialAssetsMax: number;
+     public totalFixedAssets: number;
+     public totalFixedAssetsMin: number;
+     public totalFixedAssetsMax: number;
+     public inventories: number;
+     public inventoriesMin: number;
+     public inventoriesMax: number;
+     public accountsReceivable: number;
+     public accountsReceivableMin: number;
+     public accountsReceivableMax: number;
+     public totalCurrentAssets: number;
+     public totalCurrentAssetsMin: number;
+     public totalCurrentAssetsMax: number;
+     public bankDeposits: number;
+     public bankDepositsMin: number;
+     public bankDepositsMax: number;
+     public cashInHand: number;
+     public cashInHandMin: number;
+     public cashInHandMax: number;
+     public totalTreasuryAssets: number;
+     public totalTreasuryAssetsMin: number;
+     public totalTreasuryAssetsMax: number;
+     public totalAssets: number;
+     public totalAssetsMin: number;
+     public totalAssetsMax: number;
+     public equity: number;
+     public equityMin: number;
+     public equityMax: number;
+     public loans: number;
+     public loansMin: number;
+     public loansMax: number;
+     public profit: number;
+     public profitMin: number;
+     public profitMax: number;
+     public totalPermanentFinancing: number;
+     public totalPermanentFinancingMin: number;
+     public totalPermanentFinancingMax: number;
+     public accountsPayable: number;
+     public accountsPayableMin: number;
+     public accountsPayableMax: number;
+     public otherCurrentLiabilities: number;
+     public otherCurrentLiabilitiesMin: number;
+     public otherCurrentLiabilitiesMax: number;
+     public totalCurrentLiabilities: number;
+     public totalCurrentLiabilitiesMin: number;
+     public totalCurrentLiabilitiesMax: number;
+     public totalLiabilities: number;
+     public totalLiabilitiesMin: number;
+     public totalLiabilitiesMax: number;
+  public company: CompanyCriteria ;
+  public companys: Array<CompanyCriteria> ;
+  public balanceSheetStatus: BalanceSheetStatusCriteria ;
+  public balanceSheetStatuss: Array<BalanceSheetStatusCriteria> ;
+
+}

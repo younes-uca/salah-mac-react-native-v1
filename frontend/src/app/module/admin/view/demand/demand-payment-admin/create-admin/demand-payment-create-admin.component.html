@@ -1,0 +1,98 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'demandPaymentTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'demandPaymentTabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="1">{{'demandPaymentReference' | translate}}</label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'demandPaymentReference' | translate}}" id="1" [(ngModel)]="item.reference"
+                                                             />
+                                                    
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="2">{{'demandPaymentPaymentDate' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="{{'demandPaymentPaymentDate' | translate}}"  [(ngModel)]="item.paymentDate"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="3">{{'demandPaymentAmount' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="3" placeholder="{{'demandPaymentAmount' | translate}}" [(ngModel)]="item.amount"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-3">
+                                                <label for="4">{{'demandPaymentDemand' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="demands" [(ngModel)]="item.demand" id="4" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="reference" placeholder="{{'demandPaymentDemand' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateDemand('Demand')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                            <div class="field col-11 md:col-3">
+                                                <label for="5">{{'demandPaymentPaymentMode' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="paymentModes" [(ngModel)]="item.paymentMode" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'demandPaymentPaymentMode' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="field col-12 md:col-4">
+                                                    <label for="6">{{'demandPaymentDescription' | translate}}</label>
+                                                    <textarea id="6" pInputTextarea rows="5" cols="30" placeholder="{{'demandPaymentDescription' | translate}}"  [(ngModel)]="item.description"
+                                                             ></textarea>
+                                                    
+                                                </div>
+
+                                                <div class="field align-inputswitch col-12  md:col-4">
+                                                    <div  class="label-inputswitch">
+                                                        <label for="7">{{'demandPaymentVireCheck' | translate}}</label>
+                                                    </div>
+                                                    <div class="input-switch">
+                                                        <p-inputSwitch id="7"  [(ngModel)]="item.vireCheck"
+                                                                 >
+                                                        </p-inputSwitch>
+                                                        
+                                                    </div>
+                                                </div>
+
+
+                                            <div class="field col-11 md:col-3">
+                                                <label for="8">{{'demandPaymentStatusPaymentDemand' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="statusPaymentDemands" [(ngModel)]="item.statusPaymentDemand" id="8" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'demandPaymentStatusPaymentDemand' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+            <app-demand-create-admin></app-demand-create-admin>
+
+
+    </p-dialog>

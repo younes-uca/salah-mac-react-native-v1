@@ -1,0 +1,76 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'incomeStatementDeclarationTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'incomeStatementDeclarationTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-3">
+                        <label for="1">{{'Reference' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Reference' | translate}}" autofocus  id="1" [(ngModel)]="item.reference">
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="2">{{'Declaration date' | translate}}</label>
+                        <p-calendar id="2" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'Declaration date' | translate}}"  [(ngModel)]="item.declarationDate" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="3">{{'Quarter' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="3" [disabled]="true" placeholder="{{'Quarter' | translate}}" [(ngModel)]="item.quarter"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="4">{{'Year' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="4" [disabled]="true" placeholder="{{'Year' | translate}}" [(ngModel)]="item.year"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="5">{{'Company' | translate}}</label>
+                        <p-dropdown [options]="companys" [(ngModel)]="item.company" id="5" [disabled]="true" optionLabel="ice" placeholder="{{'Company' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="6">{{'Total expense' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="6" [disabled]="true" placeholder="{{'Total expense' | translate}}" [(ngModel)]="item.totalExpense"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="7">{{'Total revenue' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="7" [disabled]="true" placeholder="{{'Total revenue' | translate}}" [(ngModel)]="item.totalRevenue"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="8">{{'Income before tax' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'Income before tax' | translate}}" [(ngModel)]="item.incomeBeforeTax"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="9">{{'Corporate tax rate' | translate}}</label>
+                        <p-dropdown [options]="corporateTaxRates" [(ngModel)]="item.corporateTaxRate" id="9" [disabled]="true" optionLabel="id" placeholder="{{'Corporate tax rate' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="10">{{'Tax amount' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="10" [disabled]="true" placeholder="{{'Tax amount' | translate}}" [(ngModel)]="item.taxAmount"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="11">{{'Income after tax' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="11" [disabled]="true" placeholder="{{'Income after tax' | translate}}" [(ngModel)]="item.incomeAfterTax"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="12">{{'Handling accountant' | translate}}</label>
+                        <p-dropdown [options]="handlingAccountants" [(ngModel)]="item.handlingAccountant" id="12" [disabled]="true" optionLabel="cin" placeholder="{{'Handling accountant' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="13">{{'Validation accountant' | translate}}</label>
+                        <p-dropdown [options]="validationAccountants" [(ngModel)]="item.validationAccountant" id="13" [disabled]="true" optionLabel="cin" placeholder="{{'Validation accountant' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

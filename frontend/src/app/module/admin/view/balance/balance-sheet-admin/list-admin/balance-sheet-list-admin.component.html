@@ -1,0 +1,514 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('BalanceSheet')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                        <label for="file-upload" class="file-upload-label">
+                            <span class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></span>
+                            <span class="upload-text">Click to select a file</span>
+                        </label>
+                        <input id="file-upload" type="file" (change)="onExcelFileSelected($event)" accept=".xlsx, .xls" style="display: none;">
+                        <p-splitButton (click)="importExcel()"  [disabled]="!excelFile" label=" {{'import' | translate}}" icon="pi pi-upload"  styleClass="p-button-help"  style="margin-right: 2% ; color: #1BA7AF"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.refLike">
+                            <label for="1">{{'Ref' | translate}}</label>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.yearMin" id="2-1"></p-inputNumber>
+                            <label for="2-1">{{'Year' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.yearMax" id="2-2"></p-inputNumber>
+                            <label for="2-2">{{'Year' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="companys" [(ngModel)]="criteria.company" id="3" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Company' | translate}}" optionLabel="ice">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.intangibleAssetsMin" id="4-1"></p-inputNumber>
+                            <label for="4-1">{{'Intangible assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.intangibleAssetsMax" id="4-2"></p-inputNumber>
+                            <label for="4-2">{{'Intangible assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.tangibleAssetsMin" id="5-1"></p-inputNumber>
+                            <label for="5-1">{{'Tangible assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.tangibleAssetsMax" id="5-2"></p-inputNumber>
+                            <label for="5-2">{{'Tangible assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.financialAssetsMin" id="6-1"></p-inputNumber>
+                            <label for="6-1">{{'Financial assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.financialAssetsMax" id="6-2"></p-inputNumber>
+                            <label for="6-2">{{'Financial assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalFixedAssetsMin" id="7-1"></p-inputNumber>
+                            <label for="7-1">{{'Total fixed assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalFixedAssetsMax" id="7-2"></p-inputNumber>
+                            <label for="7-2">{{'Total fixed assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.inventoriesMin" id="8-1"></p-inputNumber>
+                            <label for="8-1">{{'Inventories' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.inventoriesMax" id="8-2"></p-inputNumber>
+                            <label for="8-2">{{'Inventories' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.accountsReceivableMin" id="9-1"></p-inputNumber>
+                            <label for="9-1">{{'Accounts receivable' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.accountsReceivableMax" id="9-2"></p-inputNumber>
+                            <label for="9-2">{{'Accounts receivable' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalCurrentAssetsMin" id="10-1"></p-inputNumber>
+                            <label for="10-1">{{'Total current assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalCurrentAssetsMax" id="10-2"></p-inputNumber>
+                            <label for="10-2">{{'Total current assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.bankDepositsMin" id="11-1"></p-inputNumber>
+                            <label for="11-1">{{'Bank deposits' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.bankDepositsMax" id="11-2"></p-inputNumber>
+                            <label for="11-2">{{'Bank deposits' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.cashInHandMin" id="12-1"></p-inputNumber>
+                            <label for="12-1">{{'Cash in hand' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.cashInHandMax" id="12-2"></p-inputNumber>
+                            <label for="12-2">{{'Cash in hand' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTreasuryAssetsMin" id="13-1"></p-inputNumber>
+                            <label for="13-1">{{'Total treasury assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTreasuryAssetsMax" id="13-2"></p-inputNumber>
+                            <label for="13-2">{{'Total treasury assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalAssetsMin" id="14-1"></p-inputNumber>
+                            <label for="14-1">{{'Total assets' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalAssetsMax" id="14-2"></p-inputNumber>
+                            <label for="14-2">{{'Total assets' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.equityMin" id="15-1"></p-inputNumber>
+                            <label for="15-1">{{'Equity' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.equityMax" id="15-2"></p-inputNumber>
+                            <label for="15-2">{{'Equity' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.loansMin" id="16-1"></p-inputNumber>
+                            <label for="16-1">{{'Loans' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.loansMax" id="16-2"></p-inputNumber>
+                            <label for="16-2">{{'Loans' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.profitMin" id="17-1"></p-inputNumber>
+                            <label for="17-1">{{'Profit' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.profitMax" id="17-2"></p-inputNumber>
+                            <label for="17-2">{{'Profit' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalPermanentFinancingMin" id="18-1"></p-inputNumber>
+                            <label for="18-1">{{'Total permanent financing' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalPermanentFinancingMax" id="18-2"></p-inputNumber>
+                            <label for="18-2">{{'Total permanent financing' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.accountsPayableMin" id="19-1"></p-inputNumber>
+                            <label for="19-1">{{'Accounts payable' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.accountsPayableMax" id="19-2"></p-inputNumber>
+                            <label for="19-2">{{'Accounts payable' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.otherCurrentLiabilitiesMin" id="20-1"></p-inputNumber>
+                            <label for="20-1">{{'Other current liabilities' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.otherCurrentLiabilitiesMax" id="20-2"></p-inputNumber>
+                            <label for="20-2">{{'Other current liabilities' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalCurrentLiabilitiesMin" id="21-1"></p-inputNumber>
+                            <label for="21-1">{{'Total current liabilities' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalCurrentLiabilitiesMax" id="21-2"></p-inputNumber>
+                            <label for="21-2">{{'Total current liabilities' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalLiabilitiesMin" id="22-1"></p-inputNumber>
+                            <label for="22-1">{{'Total liabilities' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalLiabilitiesMax" id="22-2"></p-inputNumber>
+                            <label for="22-2">{{'Total liabilities' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="balanceSheetStatuss" [(ngModel)]="criteria.balanceSheetStatus" id="23" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Balance sheet status' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['ref', 'year', 'companyice', 'intangibleAssets', 'tangibleAssets', 'financialAssets', 'totalFixedAssets', 'inventories', 'accountsReceivable', 'totalCurrentAssets', 'bankDeposits', 'cashInHand', 'totalTreasuryAssets', 'totalAssets', 'equity', 'loans', 'profit', 'totalPermanentFinancing', 'accountsPayable', 'otherCurrentLiabilities', 'totalCurrentLiabilities', 'totalLiabilities', 'balanceSheetStatuslibelle']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'balanceSheetHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="ref">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Ref' | translate}}</span>
+                                <p-sortIcon field="ref"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.ref" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="year">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Year' | translate}}</span>
+                                <p-sortIcon field="year"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="company">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Company' | translate}}</span>
+                                <p-sortIcon field="company"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="intangibleAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Intangible assets' | translate}}</span>
+                                <p-sortIcon field="intangibleAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="tangibleAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Tangible assets' | translate}}</span>
+                                <p-sortIcon field="tangibleAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="financialAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Financial assets' | translate}}</span>
+                                <p-sortIcon field="financialAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="totalFixedAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total fixed assets' | translate}}</span>
+                                <p-sortIcon field="totalFixedAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="inventories">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Inventories' | translate}}</span>
+                                <p-sortIcon field="inventories"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="accountsReceivable">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Accounts receivable' | translate}}</span>
+                                <p-sortIcon field="accountsReceivable"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                <!-- 
+                        <th pSortableColumn="totalCurrentAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total current assets' | translate}}</span>
+                                <p-sortIcon field="totalCurrentAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="bankDeposits">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Bank deposits' | translate}}</span>
+                                <p-sortIcon field="bankDeposits"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="cashInHand">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Cash in hand' | translate}}</span>
+                                <p-sortIcon field="cashInHand"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalTreasuryAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total treasury assets' | translate}}</span>
+                                <p-sortIcon field="totalTreasuryAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalAssets">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total assets' | translate}}</span>
+                                <p-sortIcon field="totalAssets"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="equity">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Equity' | translate}}</span>
+                                <p-sortIcon field="equity"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="loans">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Loans' | translate}}</span>
+                                <p-sortIcon field="loans"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="profit">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Profit' | translate}}</span>
+                                <p-sortIcon field="profit"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalPermanentFinancing">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total permanent financing' | translate}}</span>
+                                <p-sortIcon field="totalPermanentFinancing"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="accountsPayable">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Accounts payable' | translate}}</span>
+                                <p-sortIcon field="accountsPayable"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="otherCurrentLiabilities">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Other current liabilities' | translate}}</span>
+                                <p-sortIcon field="otherCurrentLiabilities"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalCurrentLiabilities">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total current liabilities' | translate}}</span>
+                                <p-sortIcon field="totalCurrentLiabilities"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalLiabilities">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total liabilities' | translate}}</span>
+                                <p-sortIcon field="totalLiabilities"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="balanceSheetStatus">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Balance sheet status' | translate}}</span>
+                                <p-sortIcon field="balanceSheetStatus"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.ref}}</td>
+                            
+                            
+                        <td>{{element.year}}</td>
+                            
+                            
+                        <td>{{element.company?.ice}}</td>
+                            
+                            
+                        <td>{{element.intangibleAssets}}</td>
+                            
+                            
+                        <td>{{element.tangibleAssets}}</td>
+                            
+                            
+                        <td>{{element.financialAssets}}</td>
+                            
+                            
+                        <td>{{element.totalFixedAssets}}</td>
+                            
+                            
+                        <td>{{element.inventories}}</td>
+                            
+                            
+                        <td>{{element.accountsReceivable}}</td>
+                            
+                             <!-- 
+                        <td>{{element.totalCurrentAssets}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.bankDeposits}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.cashInHand}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalTreasuryAssets}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalAssets}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.equity}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.loans}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.profit}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalPermanentFinancing}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.accountsPayable}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.otherCurrentLiabilities}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalCurrentLiabilities}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalLiabilities}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.balanceSheetStatus?.libelle}}</td>
+                             --> 
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                            <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-secondary" (click)="exportPdf(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'balance sheet' : 'balance sheets' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-balance-sheet-create-admin></app-balance-sheet-create-admin>
+        <app-balance-sheet-edit-admin></app-balance-sheet-edit-admin>
+        <app-balance-sheet-view-admin></app-balance-sheet-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

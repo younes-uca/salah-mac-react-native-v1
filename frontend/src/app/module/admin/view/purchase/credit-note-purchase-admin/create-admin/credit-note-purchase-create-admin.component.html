@@ -1,0 +1,124 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'creditNotePurchaseTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'creditNotePurchaseTabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="1">{{'creditNotePurchaseCreditNoteDate' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="1"  [showTime]="true" [showSeconds]="false" placeholder="{{'creditNotePurchaseCreditNoteDate' | translate}}"  [(ngModel)]="item.creditNoteDate"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="2">{{'creditNotePurchaseAmount' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="2" placeholder="{{'creditNotePurchaseAmount' | translate}}" [(ngModel)]="item.amount"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-5">
+                                                <label for="3">{{'creditNotePurchasePurchase' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="purchases" [(ngModel)]="item.purchase" id="3" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="reference" placeholder="{{'creditNotePurchasePurchase' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreatePurchase('Purchase')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                            <div class="field col-11 md:col-5">
+                                                <label for="5">{{'creditNotePurchaseCreditNotePurchaseStatus' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="creditNotePurchaseStatuss" [(ngModel)]="item.creditNotePurchaseStatus" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'creditNotePurchaseCreditNotePurchaseStatus' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateCreditNotePurchaseStatus('CreditNotePurchaseStatus')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                </div>
+                            </p-tabPanel>
+                                    <p-tabPanel header="creditNotePurchaseCreditNotePurchaseItems">
+                                        <p-tabView [(activeIndex)]="activeTab">
+                                            <p-tabPanel header="Création">
+                                                    <div class="grid">
+                                                                    <div class="field col-11 md:col-3">
+                                                                        <label>Product</label>
+                                                                        <p-dropdown  appendTo="body"  [options]="products" [(ngModel)]="creditNotePurchaseItemsElement.product"
+                                                                                     id="1"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="libelle"
+                                                                                     placeholder="Product"  >
+                                                                        </p-dropdown>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="2">Amount</label>
+                                                                        <p-inputNumber class="mb-2 mr-2" id="amount" placeholder="Amount"  [(ngModel)]="creditNotePurchaseItemsElement.amount"></p-inputNumber>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="3">Quantity</label>
+                                                                        <p-inputNumber class="mb-2 mr-2" id="quantity" placeholder="Quantity"  [(ngModel)]="creditNotePurchaseItemsElement.quantity"></p-inputNumber>
+                                                                        
+                                                                    </div>
+                                                        <div class="field col-12 md:col-1">
+                                                            <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addCreditNotePurchaseItems()"></button>
+                                                        </div>
+
+                                                    </div>
+                                            </p-tabPanel>
+                                            <p-tabPanel header="Liste {{item.creditNotePurchaseItems?.length > 0 ? '(' + item.creditNotePurchaseItems?.length + ')' : ''}}">
+                                                    <div class="card">
+                                                        <p-table [value]="item.creditNotePurchaseItems" [scrollable]="true" scrollHeight="200px">
+                                                            <ng-template pTemplate="header">
+                                                                <tr>
+                                                                                <th>Product</th>
+                                                                                <th>Amount</th>
+                                                                                <th>Quantity</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-p>
+                                                                <tr>
+                                                                            <td>{{p.product?.libelle}}</td>
+                                                                                <td>{{p.amount}}</td>
+                                                                                <td>{{p.quantity}}</td>
+                                                                    <td>
+                                                                        <button (click)="deleteCreditNotePurchaseItem(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                        <button (click)="editCreditNotePurchaseItem(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+
+                                            </p-tabPanel>
+                                        </p-tabView>
+                                    </p-tabPanel>
+
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+            <app-purchase-create-admin></app-purchase-create-admin>
+            <app-credit-note-purchase-status-create-admin></app-credit-note-purchase-status-create-admin>
+
+
+    </p-dialog>

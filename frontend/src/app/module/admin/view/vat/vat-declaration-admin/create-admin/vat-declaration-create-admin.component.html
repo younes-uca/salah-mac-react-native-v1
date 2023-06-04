@@ -1,0 +1,120 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'vatDeclarationTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'vatDeclarationTabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="1">{{'vatDeclarationReference' | translate}}</label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'vatDeclarationReference' | translate}}" id="1" [(ngModel)]="item.reference"
+                                                             />
+                                                    
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="2">{{'vatDeclarationDeclarationDate' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="{{'vatDeclarationDeclarationDate' | translate}}"  [(ngModel)]="item.declarationDate"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="3">{{'vatDeclarationQuarter' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="3" placeholder="{{'vatDeclarationQuarter' | translate}}" [(ngModel)]="item.quarter"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="4">{{'vatDeclarationYear' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="4" placeholder="{{'vatDeclarationYear' | translate}}" [(ngModel)]="item.year"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-2">
+                                                <label for="5">{{'vatDeclarationCompany' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="companys" [(ngModel)]="item.company" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="ice" placeholder="{{'vatDeclarationCompany' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="6">{{'vatDeclarationTotalCollectedVat' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="6" placeholder="{{'vatDeclarationTotalCollectedVat' | translate}}" [(ngModel)]="item.totalCollectedVat"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="7">{{'vatDeclarationTotalDueVat' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="7" placeholder="{{'vatDeclarationTotalDueVat' | translate}}" [(ngModel)]="item.totalDueVat"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="8">{{'vatDeclarationVatDifference' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="8" placeholder="{{'vatDeclarationVatDifference' | translate}}" [(ngModel)]="item.vatDifference"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-2">
+                                                <label for="9">{{'vatDeclarationLatePaymentRate' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="latePaymentRates" [(ngModel)]="item.latePaymentRate" id="9" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="id" placeholder="{{'vatDeclarationLatePaymentRate' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateLatePaymentRate('LatePaymentRate')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="10">{{'vatDeclarationVatAmount' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="10" placeholder="{{'vatDeclarationVatAmount' | translate}}" [(ngModel)]="item.vatAmount"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-2">
+                                                <label for="11">{{'vatDeclarationHandlingAccountant' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="handlingAccountants" [(ngModel)]="item.handlingAccountant" id="11" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="cin" placeholder="{{'vatDeclarationHandlingAccountant' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                            <div class="field col-11 md:col-2">
+                                                <label for="12">{{'vatDeclarationValidationAccountant' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="validationAccountants" [(ngModel)]="item.validationAccountant" id="12" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="cin" placeholder="{{'vatDeclarationValidationAccountant' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+            <app-late-payment-rate-create-admin></app-late-payment-rate-create-admin>
+
+
+    </p-dialog>

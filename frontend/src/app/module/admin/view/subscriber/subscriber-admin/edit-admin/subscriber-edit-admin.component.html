@@ -1,0 +1,233 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'subscriberTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'subscriberTabPan' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="1">{{'subscriberCode' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberCode' | translate}}" id="1" [(ngModel)]="item.code"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="2">{{'subscriberAddress' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberAddress' | translate}}" id="2" [(ngModel)]="item.address"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field align-inputswitch col-12  md:col-3">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'subscriberBlocked' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch   appendTo="body" id="3"  [(ngModel)]="item.blocked"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="4">{{'subscriberCreationDate' | translate}}</label>
+                                            <p-calendar appendTo="body" id="4"   [showTime]="true" [showSeconds]="false" placeholder="{{'subscriberCreationDate' | translate}}"  [(ngModel)]="item.creationDate"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="5">{{'subscriberEmail' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberEmail' | translate}}" id="5" [(ngModel)]="item.email"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="6">{{'subscriberPhone' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberPhone' | translate}}" id="6" [(ngModel)]="item.phone"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="7">{{'subscriberLogo' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberLogo' | translate}}" id="7" [(ngModel)]="item.logo"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="8">{{'subscriberFirstName' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberFirstName' | translate}}" id="8" [(ngModel)]="item.firstName"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="9">{{'subscriberLastName' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberLastName' | translate}}" id="9" [(ngModel)]="item.lastName"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="10">{{'subscriberCompanyName' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberCompanyName' | translate}}" id="10" [(ngModel)]="item.companyName"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="11">{{'subscriberBackupPath' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberBackupPath' | translate}}" id="11" [(ngModel)]="item.backupPath"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="12">{{'subscriberPatent' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberPatent' | translate}}" id="12" [(ngModel)]="item.patent"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="13">{{'subscriberRc' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberRc' | translate}}" id="13" [(ngModel)]="item.rc"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="14">{{'subscriberCnss' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberCnss' | translate}}" id="14" [(ngModel)]="item.cnss"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="15">{{'subscriberIfisc' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberIfisc' | translate}}" id="15" [(ngModel)]="item.ifisc"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="16">{{'subscriberIce' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'subscriberIce' | translate}}" id="16" [(ngModel)]="item.ice"
+                                                     />
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                            <p-tabPanel header="subscriberCompanys">
+                                <p-tabView [(activeIndex)]="activeTab">
+                                    <p-tabPanel header="Création">
+                                        <div class="grid">
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="1">Ice</label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Ice"
+                                                                       id="1" [(ngModel)]="companysElement.ice"
+                                                                       autofocus   >
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="2">Headquarters</label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Headquarters"
+                                                                       id="2" [(ngModel)]="companysElement.headquarters"
+                                                                       autofocus   >
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="3">Last paid year i s</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="lastPaidYearIS" [(ngModel)]="companysElement.lastPaidYearIS" placeholder="Last paid year i s"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="4">Last paid quarter i s</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="lastPaidQuarterIS" [(ngModel)]="companysElement.lastPaidQuarterIS" placeholder="Last paid quarter i s"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="5">Last paid year v a t</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="lastPaidYearVAT" [(ngModel)]="companysElement.lastPaidYearVAT" placeholder="Last paid year v a t"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="6">Last paid quarter v a t</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="lastPaidQuarterVAT" [(ngModel)]="companysElement.lastPaidQuarterVAT" placeholder="Last paid quarter v a t"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field  align-inputswitch col-12 md:col-4">
+                                                                <div  class="label-inputswitch">
+                                                                    <label for="7">Blocked</label>
+                                                                </div>
+                                                                <div class="input-switch">
+                                                                    <p-inputSwitch  appendTo="body" id="7"  [(ngModel)]="companysElement.blocked"></p-inputSwitch>
+                                                                </div>
+                                                            </div>
+                                                <div class="field col-12 md:col-1">
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addCompanys()"></button>
+                                                </div>
+                                        </div>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="Liste {{item.companys?.length > 0 ? '(' + item.companys?.length + ')' : ''}}">
+                                            <div class="card">
+                                                <p-table [value]="item.companys" [scrollable]="true" scrollHeight="200px">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                                        <th>Ice</th>
+                                                                        <th>Headquarters</th>
+                                                                        <th>Last paid year i s</th>
+                                                                        <th>Last paid quarter i s</th>
+                                                                        <th>Last paid year v a t</th>
+                                                                        <th>Last paid quarter v a t</th>
+                                                                        <th>Blocked</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-p>
+                                                        <tr>
+                                                                        <td>{{p.ice}}</td>
+                                                                        <td>{{p.headquarters}}</td>
+                                                                        <td>{{p.lastPaidYearIS}}</td>
+                                                                        <td>{{p.lastPaidQuarterIS}}</td>
+                                                                        <td>{{p.lastPaidYearVAT}}</td>
+                                                                        <td>{{p.lastPaidQuarterVAT}}</td>
+                                                                        <td><i *ngIf="p.blocked" class="pi pi-check checked-toogle"></i>
+                                                                            <i *ngIf="!p.blocked" class="pi pi-times unchecked-toogle"></i>
+                                                                        </td>
+                                                            <td>
+                                                                <button (click)="deleteCompany(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                <button (click)="editCompany(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </p-tabPanel>
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>
